@@ -8,27 +8,25 @@ function App() {
   const [todos, setTodos] = useState([
     {
       name: "Complete the PAPA courses",
-      status: "Active",
-      // date: Date.now(),
+      status: true,
+      date: new Date().toLocaleString(),
+    },
+    {
+      name: "Complete the Todo App",
+      status: false,
+      date: new Date().toLocaleString(),
     },
   ]);
   const [input, setInput] = useState("");
 
   const addTodo = (e) => {
-    const n = { name: todoref.current.value, status: "do" };
-    console.log(typeof todos);
-    console.log(n);
     e.preventDefault();
-    setTodos([{ ...todos }], n);
-    // setTodos(() => [
-    //   todos,
-    //   { name: todoref.current.value, status: "Inactive" },
-    // ]);
-    // setTodos(...todos, { name: todoref.current.value, status: "Inactive" });
-    // console.log(input);
-    {
-      console.log(todos);
-    }
+    const new_todo = { name: todoref.current.value, status: true };
+    // console.log(typeof todos);
+    console.log(new_todo);
+
+    setTodos([...todos, new_todo]);
+    console.log(todos);
     setInput("");
   };
   const quote = useRandomQuote();
@@ -42,14 +40,20 @@ function App() {
 
       <form>
         <input type="text" placeholder="What you will do?" ref={todoref} />
-        <button onClick={addTodo}>Add Todo</button>
+
+        <button type="submit" onClick={addTodo}>
+          Add Todo
+        </button>
       </form>
 
       <h2>My List</h2>
-
-      {/* {Object.entries(todos).map(([item, index]) => {
-        <li>{todos[item].name}</li>;
-      })} */}
+      {todos.map((todo) => {
+        return (
+          <div>
+            <li>{todo.name}</li> <h5>{todo.date}</h5>
+          </div>
+        );
+      })}
     </div>
   );
 }
